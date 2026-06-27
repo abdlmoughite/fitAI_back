@@ -5,6 +5,7 @@ import com.hessati.hessati.dto.UserDTO;
 import com.hessati.hessati.entities.User;
 import com.hessati.hessati.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,6 +21,7 @@ public class AuthenticationService {
     private UserService userService;
     @Autowired
     private JwtUtil jwtUtil;
+    @Lazy
     @Autowired
     private AuthenticationManager authenticationManager;
 

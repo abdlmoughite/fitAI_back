@@ -1,7 +1,6 @@
 package com.hessati.hessati.services;
 
 import com.hessati.hessati.dto.UserDTO;
-import com.hessati.hessati.entities.Category;
 import com.hessati.hessati.entities.Role;
 import com.hessati.hessati.entities.User;
 import com.hessati.hessati.repositories.RoleRepository;
@@ -34,8 +33,6 @@ public class UserService {
     private UserRepository userRepository;
     @Autowired
     private RoleRepository roleRepository;
-    @Autowired
-    private RoleService roleService;
 
     public UserDetails loadUserByUsername(String username) {
         Optional<User> user = userRepository.findByUsername(username);
@@ -63,7 +60,7 @@ public class UserService {
         if(user.getPassword() != null) {
             newUser.setPassword(passwordEncoder.encode(user.getPassword()));
         }
-        newUser.setRole(roleService.getAllRoles().get(0));
+        roleRepository.findByRoleName("client").ifPresent(newUser::setRole);
         newUser.setTel(user.getTel());
         return userRepository.save(newUser);
     }

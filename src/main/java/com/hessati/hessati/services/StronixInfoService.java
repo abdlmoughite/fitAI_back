@@ -17,7 +17,7 @@ public class StronixInfoService {
 
     @Autowired
     private StronixInfoRepository stronixInfoRepository;
-    @Autowired
+    @Autowired(required = false)
     private JavaMailSender mailSender;
 
     public StronixInfo getStronixInfo() {

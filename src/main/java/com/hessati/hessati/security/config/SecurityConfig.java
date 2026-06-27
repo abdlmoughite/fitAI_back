@@ -1,6 +1,5 @@
 package com.hessati.hessati.security.config;
 
-import com.hessati.hessati.security.filter.JwtAuthenticationFilter;
 import com.hessati.hessati.security.filter.JwtAutorisationFilter;
 import com.hessati.hessati.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,6 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -29,9 +27,10 @@ import java.util.List;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
-    private AuthenticationConfiguration config;
+
     @Autowired
     public SecurityConfig(UserService userService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
@@ -40,7 +39,7 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtAutorisationFilter jwtAutorisationFilter) throws Exception {
-                http.csrf().disable()
+        http.csrf().disable()
                 .cors().and()
                 .authorizeHttpRequests()
                 .requestMatchers("/**").permitAll()
@@ -50,7 +49,6 @@ public class SecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authenticationProvider(authenticationProvider())
-                .addFilter(new JwtAuthenticationFilter(authenticationManagerBean(this.config)))
                 .addFilterBefore(jwtAutorisationFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
@@ -58,9 +56,9 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOriginPatterns(List.of("http://localhost:4200"));
+        configuration.setAllowedOriginPatterns(List.of("http://localhost:5173", "http://localhost:4200", "http://localhost:3000"));
         configuration.setAllowCredentials(true);
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
         configuration.setExposedHeaders(List.of("Authorization"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
@@ -70,23 +68,24 @@ public class SecurityConfig {
 
     @Bean
     public AuthenticationProvider authenticationProvider() {
-        final DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-        daoAuthenticationProvider.setUserDetailsService(userDetailsService());
-        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder);
-        return daoAuthenticationProvider;
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setUserDetailsService(userDetailsService());
+        provider.setPasswordEncoder(passwordEncoder);
+        return provider;
     }
 
     @Bean
-    public AuthenticationManager authenticationManagerBean(AuthenticationConfiguration config) throws Exception {
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
     }
 
     @Bean
-    public UserDetailsService userDetailsService(){
-        return new UserDetailsService(){
-            @Override
-            public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetailsService userDetailsService() {
+        return username -> {
+            try {
                 return userService.loadUserByUsername(username);
+            } catch (Exception e) {
+                throw new UsernameNotFoundException("User not found: " + username);
             }
         };
     }

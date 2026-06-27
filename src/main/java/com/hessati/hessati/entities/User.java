@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -26,5 +29,11 @@ public class User {
     private String email;
     private String city;
     private String tel;
-
+    private String plan = "Starter";
+    private int totalWorkouts = 0;
+    private int totalMinutes = 0;
+    private int currentStreak = 0;
+    private int bestStreak = 0;
+    @CreationTimestamp
+    private LocalDate joinDate;
 }
