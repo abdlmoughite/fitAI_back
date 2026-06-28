@@ -27,31 +27,36 @@ public class JwtAutorisationFilter extends OncePerRequestFilter {
     }
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)throws ServletException, IOException
-    {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+            throws ServletException, IOException {
+
+        final String authHeader = request.getHeader(JwtConstant.AUTORIZATION);
+
+        // Pas de token → continuer sans authentification
+        if (authHeader == null || !authHeader.startsWith(JwtConstant.BEARER)) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         try {
-            final String authHeader = request.getHeader(JwtConstant.AUTORIZATION);
-            final String username;
-            final String jwtToken;
-            if(authHeader == null || !authHeader.startsWith(JwtConstant.BEARER)){
-                filterChain.doFilter(request,response);
-                return;
-            }
-            jwtToken = authHeader.substring(7);
-            username = jwtUtil.extractUsername(jwtToken);
-            if(username != null && SecurityContextHolder.getContext().getAuthentication() == null){
+            final String jwtToken = authHeader.substring(7);
+            final String username = jwtUtil.extractUsername(jwtToken);
+
+            if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 UserDetails userDetails = userService.loadUserByUsername(username);
-                if(jwtUtil.isTokenValid(jwtToken, userDetails))
-                {
+                if (jwtUtil.isTokenValid(jwtToken, userDetails)) {
                     jwtUtil.registerAuthenticationTokenInContext(userDetails, request);
                 }
             }
+
+            filterChain.doFilter(request, response);
+
         } catch (Exception e) {
             logger.error("JWT processing failed: " + e.getMessage());
             if (!response.isCommitted()) {
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid or expired JWT token");
             }
+            // Arrêt propre — pas de filterChain.doFilter
         }
-        filterChain.doFilter(request,response);
     }
 }

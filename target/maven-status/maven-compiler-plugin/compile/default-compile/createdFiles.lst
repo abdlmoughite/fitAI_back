@@ -5,6 +5,7 @@ com\hessati\hessati\entities\Events.class
 com\hessati\hessati\repositories\RoleRepository.class
 com\hessati\hessati\services\ReferencesService.class
 com\hessati\hessati\controllers\StronixInfoController.class
+com\hessati\hessati\config\WebConfig.class
 com\hessati\hessati\security\filter\JwtAutorisationFilter.class
 com\hessati\hessati\services\EventsService.class
 com\hessati\hessati\entities\Category.class
@@ -13,6 +14,7 @@ com\hessati\hessati\services\StronixInfoService.class
 com\hessati\hessati\services\AICoachService.class
 com\hessati\hessati\entities\Product.class
 com\hessati\hessati\dto\HiringDTO.class
+com\hessati\hessati\services\EmailService.class
 com\hessati\hessati\entities\WorkoutExercise.class
 com\hessati\hessati\authentication\AuthenticationController.class
 com\hessati\hessati\services\HiringService.class
@@ -20,6 +22,7 @@ com\hessati\hessati\config\EncoderConfig.class
 com\hessati\hessati\repositories\ProductRepository.class
 com\hessati\hessati\entities\Images.class
 com\hessati\hessati\dto\ShareProductDTO.class
+com\hessati\hessati\entities\UserStats.class
 com\hessati\hessati\repositories\ReferencesRepository.class
 com\hessati\hessati\controllers\HiringController.class
 com\hessati\hessati\dto\EventsDTO.class
@@ -36,8 +39,10 @@ com\hessati\hessati\controllers\SupportTicketController.class
 com\hessati\hessati\services\WorkoutService.class
 com\hessati\hessati\services\FtpUploaderService.class
 com\hessati\hessati\entities\StronixInfo.class
+com\hessati\hessati\repositories\PasswordResetTokenRepository.class
 com\hessati\hessati\controllers\WorkoutController.class
 com\hessati\hessati\requests\user\UserLoginRequest.class
+com\hessati\hessati\repositories\UserStatsRepository.class
 com\hessati\hessati\dto\ReferencesDTO.class
 com\hessati\hessati\services\CategoryService.class
 com\hessati\hessati\entities\WorkoutPlan.class
@@ -54,6 +59,7 @@ com\hessati\hessati\controllers\EventsController.class
 com\hessati\hessati\controllers\ReferencesController.class
 com\hessati\hessati\config\DataInitializer.class
 com\hessati\hessati\entities\Hiring.class
+com\hessati\hessati\entities\PasswordResetToken.class
 com\hessati\hessati\entities\User.class
 com\hessati\hessati\services\RoleService.class
 com\hessati\hessati\security\config\SecurityConfig.class

@@ -78,4 +78,48 @@ public class AuthenticationController {
             return ResponseEntity.ok(false);
         }
     }
+
+    @PostMapping("/forgot-password")
+    public ResponseEntity<?> forgotPassword(@RequestBody Map<String, String> body) {
+        String email = body.get("email");
+        if (email == null || email.isBlank()) {
+            return ResponseEntity.badRequest().body(Map.of("error", "Email is required"));
+        }
+
+        try {
+            userService.createPasswordResetToken(email);
+            return ResponseEntity.ok(Map.of("message", "Password reset email sent"));
+        } catch (RuntimeException e) {
+            // For security, don't reveal if email exists or not
+            return ResponseEntity.ok(Map.of("message", "If the email exists, a reset link has been sent"));
+        }
+    }
+
+    @PostMapping("/validate-reset-token")
+    public ResponseEntity<Boolean> validateResetToken(@RequestBody Map<String, String> body) {
+        String token = body.get("token");
+        if (token == null || token.isBlank()) {
+            return ResponseEntity.ok(false);
+        }
+
+        boolean valid = userService.validatePasswordResetToken(token);
+        return ResponseEntity.ok(valid);
+    }
+
+    @PostMapping("/reset-password")
+    public ResponseEntity<?> resetPassword(@RequestBody Map<String, String> body) {
+        String token = body.get("token");
+        String newPassword = body.get("newPassword");
+
+        if (token == null || token.isBlank() || newPassword == null || newPassword.isBlank()) {
+            return ResponseEntity.badRequest().body(Map.of("error", "Token and new password are required"));
+        }
+
+        try {
+            User user = userService.resetPassword(token, newPassword);
+            return ResponseEntity.ok(Map.of("message", "Password reset successfully"));
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
+        }
+    }
 }
