@@ -30,6 +30,7 @@ public class User {
     private String city;
     private String tel;
     private String plan = "Starter";
+    private String status = "active";
     private int totalWorkouts = 0;
     private int totalMinutes = 0;
     private int currentStreak = 0;

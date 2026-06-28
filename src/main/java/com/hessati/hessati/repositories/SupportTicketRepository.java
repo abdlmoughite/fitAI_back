@@ -4,10 +4,14 @@ import com.hessati.hessati.entities.SupportTicket;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
 public interface SupportTicketRepository extends JpaRepository<SupportTicket, Long> {
     List<SupportTicket> findByStatus(String status);
     List<SupportTicket> findByUserIdOrderByDateDesc(Long userId);
+    long countByStatus(String status);
+    long countByStatusAndDateAfter(String status, LocalDate date);
+    List<SupportTicket> findTop4ByOrderByDateDesc();
 }

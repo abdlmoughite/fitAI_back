@@ -9,6 +9,7 @@ import com.hessati.hessati.repositories.RoleRepository;
 import com.hessati.hessati.repositories.UserRepository;
 import com.hessati.hessati.repositories.UserStatsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -43,6 +44,10 @@ public class UserService {
     private EmailService emailService;
     @Autowired
     private UserStatsRepository userStatsRepository;
+
+    @Lazy
+    @Autowired
+    private AnalyticsService analyticsService;
 
     public UserDetails loadUserByUsername(String username) {
         Optional<User> user = userRepository.findByUsername(username);
@@ -251,19 +256,11 @@ public class UserService {
     }
 
     public java.util.Map<String, Object> getWeeklySummary(Long userId) {
-        // For now, return mock data - this should be implemented with actual workout history
-        java.util.Map<String, Object> summary = new java.util.HashMap<>();
-        summary.put("weeklyCalories", java.util.List.of(320, 450, 280, 380, 420, 0, 0));
-        summary.put("weeklyWorkouts", java.util.List.of(1, 1, 1, 1, 1, 0, 0));
-        return summary;
+        return analyticsService.getWeeklySummary(userId);
     }
 
     public java.util.Map<String, Object> getMonthlyProgress(Long userId) {
-        // For now, return mock data - this should be implemented with actual workout history
-        java.util.Map<String, Object> progress = new java.util.HashMap<>();
-        progress.put("months", java.util.List.of("Jan", "Fév", "Mar", "Avr", "Mai", "Juin"));
-        progress.put("workouts", java.util.List.of(12, 15, 18, 14, 20, 16));
-        return progress;
+        return analyticsService.getMonthlyProgress(userId);
     }
 
     public void recordWorkout(Long userId, int minutes, int calories) {
@@ -279,6 +276,24 @@ public class UserService {
         }
         stats.incrementWorkouts(minutes, calories);
         userStatsRepository.save(stats);
+    }
+
+    public User updateStatus(Long id, String status) {
+        return userRepository.findById(id).map(user -> {
+            user.setStatus(status);
+            return userRepository.save(user);
+        }).orElse(null);
+    }
+
+    public User createAdmin(String firstname, String lastname, String email, String password) {
+        User admin = new User();
+        admin.setFirstname(firstname);
+        admin.setLastname(lastname);
+        admin.setEmail(email);
+        admin.setUsername(email);
+        admin.setPassword(passwordEncoder.encode(password));
+        roleRepository.findByRoleName("admin").ifPresent(admin::setRole);
+        return userRepository.save(admin);
     }
 }
     

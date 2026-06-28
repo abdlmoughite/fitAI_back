@@ -3,6 +3,7 @@ package com.hessati.hessati.controllers;
 import com.hessati.hessati.dto.UserDTO;
 import com.hessati.hessati.entities.User;
 import com.hessati.hessati.requests.user.PasswordChangeRequest;
+import com.hessati.hessati.services.AnalyticsService;
 import com.hessati.hessati.services.UserService;
 
 import java.util.Map;
@@ -23,6 +24,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private AnalyticsService analyticsService;
 
 
     @GetMapping
@@ -198,6 +202,57 @@ public class UserController {
     }
 
 
+
+    @GetMapping("/{id}/analytics/weekly-calories")
+    public ResponseEntity<?> getWeeklyCalories(@PathVariable Long id) {
+        return ResponseEntity.ok(analyticsService.getWeeklySummary(id));
+    }
+
+    @GetMapping("/{id}/analytics/monthly-workouts")
+    public ResponseEntity<?> getMonthlyWorkouts(@PathVariable Long id) {
+        return ResponseEntity.ok(analyticsService.getMonthlyProgress(id));
+    }
+
+    @GetMapping("/{id}/analytics/performance-by-exercise")
+    public ResponseEntity<?> getPerformanceByExercise(@PathVariable Long id) {
+        return ResponseEntity.ok(analyticsService.getPerformanceByExercise(id));
+    }
+
+    @GetMapping("/{id}/analytics/muscle-distribution")
+    public ResponseEntity<?> getMuscleDistribution(@PathVariable Long id) {
+        return ResponseEntity.ok(analyticsService.getMuscleDistribution(id));
+    }
+
+    @GetMapping("/{id}/workout-history")
+    public ResponseEntity<?> getWorkoutHistory(@PathVariable Long id) {
+        return ResponseEntity.ok(analyticsService.getWorkoutHistory(id));
+    }
+
+    @PatchMapping("/{id}/status")
+    public ResponseEntity<?> updateUserStatus(@PathVariable Long id, @RequestBody Map<String, String> body) {
+        String status = body.get("status");
+        User updated = userService.updateStatus(id, status);
+        if (updated != null) return ResponseEntity.ok(updated);
+        return ResponseEntity.notFound().build();
+    }
+
+    @PostMapping("/create-admin")
+    public ResponseEntity<?> createAdmin(@RequestBody Map<String, String> body) {
+        String firstname = body.getOrDefault("firstname", "");
+        String lastname = body.getOrDefault("lastname", "");
+        String email = body.getOrDefault("email", "");
+        String password = body.getOrDefault("password", "Admin123!");
+
+        if (email.isBlank()) {
+            return ResponseEntity.badRequest().body(Map.of("error", "Email is required"));
+        }
+        try {
+            User admin = userService.createAdmin(firstname, lastname, email, password);
+            return ResponseEntity.status(HttpStatus.CREATED).body(admin);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
+        }
+    }
 
     @PostMapping("/{id}/record-workout")
     public ResponseEntity<?> recordWorkout(
