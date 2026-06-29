@@ -8,6 +8,7 @@ com\hessati\hessati\services\ReferencesService.class
 com\hessati\hessati\controllers\StronixInfoController.class
 com\hessati\hessati\config\WebConfig.class
 com\hessati\hessati\security\filter\JwtAutorisationFilter.class
+com\hessati\hessati\repositories\ChatMessageRepository.class
 com\hessati\hessati\services\EventsService.class
 com\hessati\hessati\entities\Category.class
 com\hessati\hessati\entities\Role.class
@@ -68,6 +69,7 @@ com\hessati\hessati\services\ProductService.class
 com\hessati\hessati\controllers\CategoryController.class
 com\hessati\hessati\entities\AiLog.class
 com\hessati\hessati\repositories\StronixInfoRepository.class
+com\hessati\hessati\entities\ChatMessage.class
 com\hessati\hessati\repositories\EventsRepository.class
 com\hessati\hessati\repositories\WorkoutPlanRepository.class
 com\hessati\hessati\entities\SupportTicket.class

@@ -11,7 +11,9 @@ C:\deve\pfe\full_project\fitAI_back\src\main\java\com\hessati\hessati\repositori
 C:\deve\pfe\full_project\fitAI_back\src\main\java\com\hessati\hessati\entities\PasswordResetToken.java
 C:\deve\pfe\full_project\fitAI_back\src\main\java\com\hessati\hessati\repositories\ProductRepository.java
 C:\deve\pfe\full_project\fitAI_back\src\main\java\com\hessati\hessati\dto\HiringDTO.java
+C:\deve\pfe\full_project\fitAI_back\src\main\java\com\hessati\hessati\entities\ChatMessage.java
 C:\deve\pfe\full_project\fitAI_back\src\main\java\com\hessati\hessati\config\WebConfig.java
+C:\deve\pfe\full_project\fitAI_back\src\main\java\com\hessati\hessati\entities\AiLog.java
 C:\deve\pfe\full_project\fitAI_back\src\main\java\com\hessati\hessati\dto\ShareProductDTO.java
 C:\deve\pfe\full_project\fitAI_back\src\main\java\com\hessati\hessati\controllers\ProductController.java
 C:\deve\pfe\full_project\fitAI_back\src\main\java\com\hessati\hessati\controllers\WorkoutController.java
@@ -21,6 +23,7 @@ C:\deve\pfe\full_project\fitAI_back\src\main\java\com\hessati\hessati\repositori
 C:\deve\pfe\full_project\fitAI_back\src\main\java\com\hessati\hessati\entities\Role.java
 C:\deve\pfe\full_project\fitAI_back\src\main\java\com\hessati\hessati\services\ProductService.java
 C:\deve\pfe\full_project\fitAI_back\src\main\java\com\hessati\hessati\entities\Images.java
+C:\deve\pfe\full_project\fitAI_back\src\main\java\com\hessati\hessati\controllers\AdminController.java
 C:\deve\pfe\full_project\fitAI_back\src\main\java\com\hessati\hessati\entities\StronixInfo.java
 C:\deve\pfe\full_project\fitAI_back\src\main\java\com\hessati\hessati\security\filter\JwtAutorisationFilter.java
 C:\deve\pfe\full_project\fitAI_back\src\main\java\com\hessati\hessati\controllers\CategoryController.java
@@ -28,6 +31,7 @@ C:\deve\pfe\full_project\fitAI_back\src\main\java\com\hessati\hessati\controller
 C:\deve\pfe\full_project\fitAI_back\src\main\java\com\hessati\hessati\services\EmailService.java
 C:\deve\pfe\full_project\fitAI_back\src\main\java\com\hessati\hessati\dto\StronixInfoDTO.java
 C:\deve\pfe\full_project\fitAI_back\src\main\java\com\hessati\hessati\entities\SessionExercise.java
+C:\deve\pfe\full_project\fitAI_back\src\main\java\com\hessati\hessati\repositories\AiLogRepository.java
 C:\deve\pfe\full_project\fitAI_back\src\main\java\com\hessati\hessati\services\SavedWorkoutPlanService.java
 C:\deve\pfe\full_project\fitAI_back\src\main\java\com\hessati\hessati\services\AICoachService.java
 C:\deve\pfe\full_project\fitAI_back\src\main\java\com\hessati\hessati\entities\SupportTicket.java
@@ -40,6 +44,8 @@ C:\deve\pfe\full_project\fitAI_back\src\main\java\com\hessati\hessati\security\c
 C:\deve\pfe\full_project\fitAI_back\src\main\java\com\hessati\hessati\services\RoleService.java
 C:\deve\pfe\full_project\fitAI_back\src\main\java\com\hessati\hessati\authentication\AuthenticationController.java
 C:\deve\pfe\full_project\fitAI_back\src\main\java\com\hessati\hessati\config\DataInitializer.java
+C:\deve\pfe\full_project\fitAI_back\src\main\java\com\hessati\hessati\controllers\SystemController.java
+C:\deve\pfe\full_project\fitAI_back\src\main\java\com\hessati\hessati\services\AiLogService.java
 C:\deve\pfe\full_project\fitAI_back\src\main\java\com\hessati\hessati\services\EventsService.java
 C:\deve\pfe\full_project\fitAI_back\src\main\java\com\hessati\hessati\repositories\RoleRepository.java
 C:\deve\pfe\full_project\fitAI_back\src\main\java\com\hessati\hessati\entities\References.java
@@ -73,8 +79,10 @@ C:\deve\pfe\full_project\fitAI_back\src\main\java\com\hessati\hessati\entities\E
 C:\deve\pfe\full_project\fitAI_back\src\main\java\com\hessati\hessati\dto\UserDTO.java
 C:\deve\pfe\full_project\fitAI_back\src\main\java\com\hessati\hessati\repositories\PasswordResetTokenRepository.java
 C:\deve\pfe\full_project\fitAI_back\src\main\java\com\hessati\hessati\services\SupportTicketService.java
+C:\deve\pfe\full_project\fitAI_back\src\main\java\com\hessati\hessati\controllers\AiLogController.java
 C:\deve\pfe\full_project\fitAI_back\src\main\java\com\hessati\hessati\services\CategoryService.java
 C:\deve\pfe\full_project\fitAI_back\src\main\java\com\hessati\hessati\security\config\JwtUtil.java
+C:\deve\pfe\full_project\fitAI_back\src\main\java\com\hessati\hessati\repositories\ChatMessageRepository.java
 C:\deve\pfe\full_project\fitAI_back\src\main\java\com\hessati\hessati\controllers\AICoachController.java
 C:\deve\pfe\full_project\fitAI_back\src\main\java\com\hessati\hessati\dto\EventsDTO.java
 C:\deve\pfe\full_project\fitAI_back\src\main\java\com\hessati\hessati\entities\Product.java
