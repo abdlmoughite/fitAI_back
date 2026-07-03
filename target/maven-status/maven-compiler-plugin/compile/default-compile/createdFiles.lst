@@ -26,6 +26,7 @@ com\hessati\hessati\repositories\SessionExerciseRepository.class
 com\hessati\hessati\services\WorkoutSessionService.class
 com\hessati\hessati\services\HiringService.class
 com\hessati\hessati\services\AiLogService.class
+com\hessati\hessati\config\DataInitializer$ExerciseSpec.class
 com\hessati\hessati\config\EncoderConfig.class
 com\hessati\hessati\repositories\ProductRepository.class
 com\hessati\hessati\services\AnalyticsService.class
@@ -82,6 +83,7 @@ com\hessati\hessati\entities\PasswordResetToken.class
 com\hessati\hessati\entities\User.class
 com\hessati\hessati\services\RoleService.class
 com\hessati\hessati\entities\SessionExercise.class
+com\hessati\hessati\config\DataInitializer$SessionTemplate.class
 com\hessati\hessati\security\config\SecurityConfig.class
 com\hessati\hessati\dto\ProductDTO.class
 com\hessati\hessati\authentication\AuthenticationService.class
